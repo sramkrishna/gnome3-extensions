@@ -1,0 +1,10 @@
+{
+  "description": "Add lock screen to the panel", 
+  "name": "Lock Screen", 
+  "shell-version": [
+    "3.2.1"
+  ], 
+  "url": "http://www.gnome.org/", 
+  "uuid": "lockscreen@sri.gnome.org", 
+  "version": 1
+}

@@ -1,0 +1,7 @@
+{
+"uuid": "f9fc206c-255b-11e1-b10c-b3891a2e0827",
+"name": "Launch lockscreen",
+"description": "Adds a lock screen launcher",
+"shell-version": [ "3.2.1" ],
+"url": "sri@ramkrishna.me
+}
