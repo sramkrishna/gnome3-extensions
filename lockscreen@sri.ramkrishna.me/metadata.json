@@ -4,7 +4,7 @@
   "shell-version": [
     "3.2.1"
   ], 
-  "url": "http://www.gnome.org/", 
-  "uuid": "lockscreen@sri.gnome.org", 
+  "url": "https://github.com/sramkrishna/gnome3-extensions", 
+  "uuid": "lockscreen@sri.ramkrishna.me", 
   "version": 1
 }
