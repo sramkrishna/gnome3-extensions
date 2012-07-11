@@ -1,5 +1,8 @@
 /* -*- mode: js2; js2-basic-offset: 4; indent-tabs-mode: nil -*- */
 
+/*
+ * Simple extension to lock the screen from an icon on the panel.
+ */
 
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
@@ -17,8 +20,8 @@ function init() {
 								x_fill: true,
 								y_fill: false,
 								track_hover: true });
-	let icon = new St.Icon ({ icon_name: 'system-lock-screen',
-								icon_type: St.IconType.FULLCOLOR,
+	let icon = new St.Icon ({ icon_name: 'changes-prevent',
+								icon_type: St.IconType.SYMBOLIC,
 								style_class: 'system-status-icon'});
 	button.set_child(icon);
 	button.connect('button-press-event', _LockScreenActivate);
@@ -32,7 +35,7 @@ function _LockScreenActivate () {
 
 
 function enable () {
-	Main.panel._rightBox.insert_actor(button,0);
+	Main.panel._rightBox.insert_child_at_index(button,0);
 }
 
 function disable () {
