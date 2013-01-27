@@ -9,7 +9,7 @@ const Lang = imports.lang;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
-const ScreenSaver = imports.misc.screenSaver;
+/*const ScreenSaver = imports.misc.screenSaver;*/
 const Main = imports.ui.main;
 
 function init() {
@@ -20,8 +20,7 @@ function init() {
 								x_fill: true,
 								y_fill: false,
 								track_hover: true });
-	let icon = new St.Icon ({ icon_name: 'changes-prevent',
-								icon_type: St.IconType.SYMBOLIC,
+	let icon = new St.Icon ({ icon_name: 'changes-prevent-symbolic',
 								style_class: 'system-status-icon'});
 	button.set_child(icon);
 	button.connect('button-press-event', _LockScreenActivate);
@@ -29,8 +28,9 @@ function init() {
 
 function _LockScreenActivate () {
 	Main.overview.hide();
-	screenSaverProxy = new ScreenSaver.ScreenSaverProxy();
-	screenSaverProxy.LockRemote();
+/*	screenSaverProxy = new ScreenSaver.ScreenSaverProxy();
+	screenSaverProxy.LockRemote();*/
+	Main.screenShield.lock(true)
 }
 
 
