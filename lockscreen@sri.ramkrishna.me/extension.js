@@ -11,10 +11,11 @@ const St = imports.gi.St;
 
 /*const ScreenSaver = imports.misc.screenSaver;*/
 const Main = imports.ui.main;
+let _lockScreenButton = null;
 
 function init() {
 
-	button = new St.Bin({ style_class: 'panel-button', 
+	_lockScreenButton = new St.Bin({ style_class: 'panel-button', 
 								reactive: true,
 								can_focus: true,
 								x_fill: true,
@@ -22,8 +23,8 @@ function init() {
 								track_hover: true });
 	let icon = new St.Icon ({ icon_name: 'changes-prevent-symbolic',
 								style_class: 'system-status-icon'});
-	button.set_child(icon);
-	button.connect('button-press-event', _LockScreenActivate);
+	_lockScreenButton.set_child(icon);
+	_lockScreenButton.connect('button-press-event', _LockScreenActivate);
 }
 
 function _LockScreenActivate () {
@@ -35,9 +36,9 @@ function _LockScreenActivate () {
 
 
 function enable () {
-	Main.panel._rightBox.insert_child_at_index(button,0);
+	Main.panel._rightBox.insert_child_at_index(_lockScreenButton,0);
 }
 
 function disable () {
-	Main.panel._rightBox.remove_actor(button);
+	Main.panel._rightBox.remove_actor(_lockScreenButton);
 }
