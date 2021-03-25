@@ -23,10 +23,7 @@
  * Simple extension to lock the screen from an icon on the panel.
  */
 
-const Gio = imports.gi.Gio;
-const Lang = imports.lang;
-const Shell = imports.gi.Shell;
-const St = imports.gi.St;
+const {St, Clutter} = imports.gi;
 
 /*const ScreenSaver = imports.misc.screenSaver;*/
 const Main = imports.ui.main;
@@ -37,8 +34,7 @@ function init() {
 	_lockScreenButton = new St.Bin({ style_class: 'panel-button', 
 								reactive: true,
 								can_focus: true,
-								x_fill: true,
-								y_fill: false,
+								y_align: Clutter.ActorAlign.CENTER,
 								track_hover: true });
 	let icon = new St.Icon ({ icon_name: 'changes-prevent-symbolic',
 								style_class: 'system-status-icon'});
