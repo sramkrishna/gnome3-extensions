@@ -23,7 +23,7 @@
  * Simple extension to lock the screen from an icon on the panel.
  */
 
-const {St, Clutter, Gio, Shell} = imports.gi;
+const {St, Clutter} = imports.gi;
 
 /*const ScreenSaver = imports.misc.screenSaver;*/
 const Main = imports.ui.main;
