@@ -19,41 +19,50 @@
  * Author: Sriram Ramkrishna <sri@ramkrishna.me>
  */
 
-/*
- * Simple extension to lock the screen from an icon on the panel.
- */
+import St from 'gi://St';
+import GObject from 'gi://GObject';
 
-const {St, Clutter} = imports.gi;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 
-/*const ScreenSaver = imports.misc.screenSaver;*/
-const Main = imports.ui.main;
-let _lockScreenButton = null;
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-function init() {
+export default class LockScreenExtension extends Extension {
+    constructor(metadata) {
+        super(metadata);
+    }
 
-	_lockScreenButton = new St.Bin({ style_class: 'panel-button', 
-								reactive: true,
-								can_focus: true,
-								y_align: Clutter.ActorAlign.CENTER,
-								track_hover: true });
-	let icon = new St.Icon ({ icon_name: 'changes-prevent-symbolic',
-								style_class: 'system-status-icon'});
-	_lockScreenButton.set_child(icon);
-	_lockScreenButton.connect('button-press-event', _LockScreenActivate);
+    enable() {
+        this._button = new LockScreenButton();
+        Main.panel.addToStatusArea(this.metadata.uuid, this._button);
+    }
+
+    disable() {
+        this._button?.destroy();
+        this._button = null;
+    }
 }
 
-function _LockScreenActivate () {
-	Main.overview.hide();
-/*	screenSaverProxy = new ScreenSaver.ScreenSaverProxy();
-	screenSaverProxy.LockRemote();*/
-	Main.screenShield.lock(true)
-}
+class LockScreenButton extends PanelMenu.Button {
+    static {
+        GObject.registerClass(this);
+    }
 
+    constructor() {
+        super(0.0, null, true);
 
-function enable () {
-	Main.panel._rightBox.insert_child_at_index(_lockScreenButton,0);
-}
+        this._icon = new St.Icon ({
+            icon_name: 'changes-prevent-symbolic',
+            style_class: 'system-status-icon'
+        });
 
-function disable () {
-	Main.panel._rightBox.remove_actor(_lockScreenButton);
+        this.add_child(this._icon);
+
+        this.connect('button-press-event', this.#lockScreen);
+    }
+
+    #lockScreen() {
+        Main.overview.hide();
+        Main.screenShield.lock(true);
+    }
 }
